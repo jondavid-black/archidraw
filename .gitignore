@@ -1,0 +1,54 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# Logs & coverage
+*.log
+coverage/
+coverage.xml
+htmlcov/
+.coverage*
+
+# Node / SvelteKit
+node_modules/
+.svelte-kit/
+.vite/
+build/
+dist/
+.vscode/
+playwright-report/
+test-results/
+
+# Frontend project-specific artifacts
+frontend/node_modules/
+frontend/.svelte-kit/
+frontend/.vite/
+frontend/build/
+frontend/dist/
+frontend/playwright-report/
+frontend/test-results/
+
+# Python / FastAPI
+__pycache__/
+*.py[cod]
+*.pyo
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.uv/
+
+# Backend project-specific artifacts
+backend/__pycache__/
+backend/.mypy_cache/
+backend/.pytest_cache/
+backend/.ruff_cache/
+
+# Editor settings
+.idea/
+*.swp
+""
