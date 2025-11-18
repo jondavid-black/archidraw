@@ -53,7 +53,7 @@
 - [ ] T015 [US1] Build `frontend/src/lib/components/overlay/CanvasStatus.svelte` that blocks input, shows loading text, and fades out ≤300 ms.
 - [ ] T016 [US1] Wire overlay + Fabric component inside `frontend/src/routes/+page.svelte`, restoring focus to the canvas after overlay dismissal.
 - [ ] T017 [US1] Populate `frontend/src/routes/+page.ts` with layout props (initial viewport, grid default) feeding the stores.
-- [ ] T018 [US1] Add 100% height layout styles in `frontend/src/routes/+layout.svelte` (or scoped style) removing scrollbars and ensuring canvas fills viewport.
+- [X] T018 [US1] Add 100% height layout styles in `frontend/src/routes/+layout.svelte` (or scoped style) removing scrollbars and ensuring canvas fills viewport.
 
 **Checkpoint**: US1 red→green cycle complete; canvas + overlay + telemetry baseline work end-to-end.
 
@@ -93,8 +93,8 @@
 ### Tests (write first)
 
 - [ ] T028 [P] [US3] Vitest `frontend/tests/instrumentation/telemetry.spec.ts` covering `publishCanvasEvent`, event payload schema, timestamp deltas (1 s guard), and window hook.
-- [ ] T029 [P] [US3] Playwright `frontend/e2e/canvas-telemetry.spec.ts` (Chromium) validating ready/error events + retry.
-- [ ] T030 [P] [US3] Playwright `frontend/e2e/canvas-telemetry.spec.ts` (WebKit) to satisfy SC-003 multi-browser coverage.
+- [x] T029 [P] [US3] Playwright `frontend/e2e/canvas-telemetry.spec.ts` (Chromium) validating ready/error events + retry.
+- [x] T030 [P] [US3] Playwright `frontend/e2e/canvas-telemetry.spec.ts` (WebKit) to satisfy SC-003 multi-browser coverage.
 
 ### Implementation
 
@@ -111,7 +111,7 @@
 
 - [ ] T035 Capture Playwright visual-diff baselines for `canvas-resize` + `canvas-mobile` suites (store artifacts under `frontend/e2e/__screenshots__/`).
 - [ ] T036 [P] Update `frontend/playwright.config.ts` to enable Chromium + WebKit runs, screenshot comparisons, and per-suite thresholds that map to SC-002 metrics.
-- [ ] T037 [P] Update `.github/workflows/frontend.yml` (or equivalent) so CI runs `npm run lint`, `npm run test`, `npm run check`, and `npm run test:e2e` with the new suites/browsers.
+- [X] T037 [P] Update `.github/workflows/frontend.yml` (or equivalent) so CI runs `npm run lint`, `npm run test`, `npm run check`, and `npm run test:e2e` with the new suites/browsers.
 - [ ] T038 Update docs `frontend/src/routes/docs/drawing-shell/+page.md` describing layout regions, grid toggle, telemetry overlay, and troubleshooting tips.
 - [ ] T039 [P] Refresh `specs/001-core-spa-layout/quickstart.md` with final commands plus instructions for capturing telemetry logs.
 - [ ] T040 Run `npm run lint`, `npm run test`, `npm run check`, and `npm run test:e2e` from `frontend/`, capturing output for PR notes.

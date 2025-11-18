@@ -1,0 +1,15 @@
+node_modules/
+.svelte-kit/
+.vite/
+build/
+dist/
+coverage/
+playwright-report/
+test-results/
+frontend/node_modules/
+frontend/.svelte-kit/
+frontend/.vite/
+frontend/build/
+frontend/dist/
+frontend/playwright-report/
+frontend/test-results/

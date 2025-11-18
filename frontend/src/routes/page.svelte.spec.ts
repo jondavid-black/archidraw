@@ -1,13 +1,24 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
-import { render } from 'vitest-browser-svelte';
+import { render, screen } from '@testing-library/svelte';
+import { describe, expect, it, vi } from 'vitest';
+
+vi.mock('$lib/components/canvas/FabricStage.svelte', () =>
+	import('../../tests/mocks/FabricStageStub.svelte').then((module) => ({ default: module.default }))
+);
+
 import Page from './+page.svelte';
 
-describe('/+page.svelte', () => {
-	it('should render h1', async () => {
-		render(Page);
+const defaultData = {
+	initialGridEnabled: false,
+	featureFlags: {
+		gridToggle: true,
+		telemetryOverlay: true
+	}
+};
 
-		const heading = page.getByRole('heading', { level: 1 });
-		await expect.element(heading).toBeInTheDocument();
+describe('/+page.svelte', () => {
+	it('renders hero heading', () => {
+		render(Page, { props: { data: defaultData } });
+		const heading = screen.getByRole('heading', { level: 1, name: /archidraw/i });
+		expect(heading).toBeVisible();
 	});
 });
