@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: Fabric Canvas State Contract
+  version: 0.1.0
+  description: >-
+    Canonical schema for the frontend-only Fabric canvas status payload that will
+    later sync with FastAPI services.
+components:
+  schemas:
+    FabricCanvasState:
+      type: object
+      required:
+        - status
+        - background
+        - zoom
+        - pan
+      properties:
+        status:
+          type: string
+          enum: [idle, initializing, ready, error]
+        background:
+          type: object
+          required: [type, color]
+          properties:
+            type:
+              type: string
+              enum: [solid, grid]
+            color:
+              type: string
+              description: CSS color string
+        zoom:
+          type: number
+          minimum: 0.1
+          maximum: 4
+        pan:
+          type: object
+          required: [x, y]
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+        gridPatternSize:
+          type: integer
+          minimum: 4
+          maximum: 64
+          description: Pixel dimension of the repeating pattern tile when grid is enabled.
+        lastTransitionAt:
+          type: number
+          format: double
+          description: performance.now() timestamp in milliseconds.
+        error:
+          type: object
+          nullable: true
+          properties:
+            message:
+              type: string
+            code:
+              type: string
+  responses:
+    FabricCanvasStateResponse:
+      description: Fabric canvas status payload for telemetry consumers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FabricCanvasState'
