@@ -8,6 +8,7 @@ import globals from 'globals';
 import ts from 'typescript-eslint';
 import svelteConfig from './svelte.config.js';
 
+const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 export default defineConfig(
@@ -25,6 +26,15 @@ export default defineConfig(
 			// typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
 			// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 			'no-undef': 'off'
+		}
+	},
+	{
+		files: ['src/lib/**/*.ts', 'src/lib/**/*.js', 'src/routes/**/*.ts', 'src/routes/**/*.js'],
+		languageOptions: {
+			parserOptions: {
+				projectService: true,
+				tsconfigRootDir: projectRoot
+			}
 		}
 	},
 	{

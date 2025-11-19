@@ -1,38 +1,29 @@
-# sv
+# Archidraw Frontend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This package hosts the Fabric canvas baseline described in `specs/001-core-spa-layout/`. Everything lives inside SvelteKit so the workspace boots straight into a fullscreen Fabric scene with an instrumentation overlay.
 
-## Creating a project
+## Install & Run
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
+```bash
+npm install
 npm run dev -- --open
 ```
 
-## Building
+- The home route `/` launches the Fabric canvas with the readiness overlay blocking input until telemetry reports `fabric-ready`.
+- Use the grid toggle in the header to switch between solid background and the Fabric pattern grid.
 
-To create a production version of your app:
+## Quality Gates
 
-```sh
-npm run build
+```bash
+npm run lint           # prettier + eslint across src/lib and routes
+npm run test           # Vitest suites for stores, telemetry, and Fabric helpers
+npm run test:e2e       # Playwright smoke, resize, telemetry, and accessibility checks
 ```
 
-You can preview the production build with `npm run preview`.
+All GitHub Actions jobs run the commands above plus `npm run check` (svelte-check) so keep them green before sending a PR.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Telemetry Debugging Tips
+
+- Telemetry events emit through `window.__ARCHIDRAW_TELEMETRY__`. In DevTools, call `window.__ARCHIDRAW_TELEMETRY__.buffer` to inspect timestamps.
+- `fabric-initialized` must occur <1 s after `layout-mounted`; failures will surface in Playwright and the Vitest instrumentation suite.
+- If the overlay never dismisses, look for `fabric-error` telemetry and use the retry CTA embedded in the overlay panel.
