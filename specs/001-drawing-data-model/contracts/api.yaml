@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Archidraw API
+  version: 1.0.0
+paths:
+  /api/drawings:
+    get:
+      summary: List available drawings
+      operationId: listDrawings
+      responses:
+        '200':
+          description: List of drawing filenames
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+    post:
+      summary: Create a new drawing
+      operationId: createDrawing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+      responses:
+        '201':
+          description: Drawing created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drawing'
+        '409':
+          description: Drawing already exists
+
+  /api/drawings/{name}:
+    get:
+      summary: Get drawing content
+      operationId: getDrawing
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Drawing content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drawing'
+        '404':
+          description: Drawing not found
+    put:
+      summary: Save drawing content
+      operationId: saveDrawing
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drawing'
+      responses:
+        '200':
+          description: Drawing saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drawing'
+
+components:
+  schemas:
+    Drawing:
+      type: object
+      properties:
+        version:
+          type: string
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrawingItem'
+    
+    DrawingItem:
+      type: object
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+        left:
+          type: number
+        top:
+          type: number
+        width:
+          type: number
+        height:
+          type: number
+        stroke:
+          type: string
+        strokeWidth:
+          type: number
+      required:
+        - type
+        - left
+        - top
